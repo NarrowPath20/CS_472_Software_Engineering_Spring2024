@@ -6,12 +6,12 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Inheritance;
 import jakarta.persistence.InheritanceType;
+import jakarta.persistence.MappedSuperclass;
 import jakarta.persistence.Table;
 
 import java.io.Serializable;
 
 @Entity
-@Table( name="account" )
 @Inheritance(strategy = InheritanceType.JOINED)
 public class Account implements Serializable {
     /**
@@ -21,12 +21,16 @@ public class Account implements Serializable {
 	/**
 	 * 
 	 */
+	private static final long serialVersionUID = 1L;
+	/**
+	 * 
+	 */
 
 	@Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
-	private String firstName;
-	private String lastName;
+	private String Name;
+
 	private String homeAddress;
 	private String dateOfBirth;
 	private String email;
@@ -41,17 +45,12 @@ public class Account implements Serializable {
 	}
 	
 	public String getFirstName() {
-		return firstName;
+		return Name;
 	}
 	public void setFirstName(String firstName) {
-		this.firstName = firstName;
+		this.Name = firstName;
 	}
-	public String getLastName() {
-		return lastName;
-	}
-	public void setLastName(String lastName) {
-		this.lastName = lastName;
-	}
+
 	public String getHomeAddress() {
 		return homeAddress;
 	}
