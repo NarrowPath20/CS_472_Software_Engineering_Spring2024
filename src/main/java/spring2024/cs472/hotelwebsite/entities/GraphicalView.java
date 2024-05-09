@@ -1,11 +1,30 @@
+/**
+ * GraphicalView.java
+ */
 package spring2024.cs472.hotelwebsite.entities;
 
+// Imports necessary for the class
+import org.springframework.stereotype.Component;
 import java.util.List;
 
+/**
+ * This class represents a GraphicalView component responsible for generating HTML for the hotel floor plan.
+ * It generates an HTML table displaying each room with a color indicating its availability.
+ *
+ * @author Team ABCFG
+ */
+@Component
 public class GraphicalView {
 
-    public String generateHotelFloorPlanHTML(List<Room> rooms, List<RoomReservation> reservations) {
-        if (rooms == null) {
+    /**
+     * Generates HTML for the hotel floor plan based on the provided lists of all rooms and available rooms.
+     *
+     * @param allRooms       The list of all rooms in the hotel.
+     * @param availableRooms The list of available rooms.
+     * @return The generated HTML representing the hotel floor plan.
+     */
+    public String generateHotelFloorPlanHTML(List<Room> allRooms, List<Room> availableRooms) {
+        if (allRooms == null) {
             // Handle the case where rooms list is null
             return "No rooms available";
         }
@@ -22,14 +41,14 @@ public class GraphicalView {
         html.append("<table border='1'>");
 
         // Loop through each room
-        for (Room room : rooms) {
+        for (Room room : allRooms) {
             html.append("<tr><td>Room ").append(room.getRoomNumber()).append("</td><td>");
 
-            // Check if the room is booked
-            boolean isBooked = isRoomBooked(room, reservations);
+            // Check if the room is reserved
+            boolean isReserved = !availableRooms.contains(room);
 
-            // If the room is booked, mark it as red, otherwise mark it as green
-            String color = isBooked ? "red" : "green";
+            // If the room is reserved, mark it as red, otherwise mark it as green
+            String color = isReserved ? "red" : "green";
             html.append("<div style='width: 50px; height: 50px; background-color: ").append(color).append("'></div>");
 
             html.append("</td></tr>");
@@ -40,18 +59,5 @@ public class GraphicalView {
         html.append("</html>");
 
         return html.toString();
-    }
-
-    private boolean isRoomBooked(Room room, List<RoomReservation> reservations) {
-        if (reservations == null) {
-            return false;
-        }
-
-        for (RoomReservation reservation : reservations) {
-            if (reservation.getRoom().getRoomNumber().equals(room.getRoomNumber())) {
-                return true;
-            }
-        }
-        return false;
     }
 }
