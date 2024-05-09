@@ -1,10 +1,6 @@
 ---
 deployment:
-  tasks:
-    - export DEPLOYPATH=/home/abcfophh/public_html/
-    - export JAVAPATH=/home/abcfophh/java_apps/
-    - /bin/mkdir -p $DEPLOYPATH
-    - /bin/mkdir -p $JAVAPATH
-    - /bin/cp index.html $DEPLOYPATH
-    - /bin/cp style.css $DEPLOYPATH
-    - /bin/cp -R bin/*.class $JAVAPATH
+   tasks:
+ - export DEPLOYPATH=/home/abcfophh/public_html/
+ - /bin/cp index.html $DEPLOYPATH
+ - /bin/cp style.css $DEPLOYPATH
